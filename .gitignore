@@ -1,13 +1,1 @@
-﻿appsettings.Development.json
-
-# Visual Studio
-.vs/
-bin/
-obj/
-
-# Arquivos de configuração local
-appsettings.Development.json
-
-# Usuário do Visual Studio
-*.user
-*.suo
+﻿
