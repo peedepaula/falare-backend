@@ -73,6 +73,7 @@ namespace FalareBackend.Services
             return (ParaResponse(aluno), null);
         }
 
+
         public async Task<(AlunoResponse? Aluno, string? Erro)> AtualizarAlunoService(Guid id, AtualizarAlunoRequest request)
         {
             var aluno = await _context.Alunos.FirstOrDefaultAsync(a => a.Id == id);

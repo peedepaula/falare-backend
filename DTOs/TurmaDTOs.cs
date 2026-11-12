@@ -17,9 +17,8 @@ namespace FalareBackend.DTOs
         [Required]
         public Guid ProfessorId { get; set; }
 
-        [Range(1, 1000)]
+        [Range(1, 12)]
         public int Vagas { get; set; }
-
     }
 
     public class AtualizarTurmasRequest
@@ -30,7 +29,7 @@ namespace FalareBackend.DTOs
         public TimeOnly? Horario { get; set; }
         public Guid? ProfessorId { get; set; }
 
-        [Range(1, 1000)]
+        [Range(1, 12)]
         public int? Vagas { get; set; }
     }
 
@@ -46,5 +45,4 @@ namespace FalareBackend.DTOs
         public int Matriculados { get; set; }
         public int Vagas { get; set; }
     }
-
 }

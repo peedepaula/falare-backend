@@ -80,16 +80,6 @@
   },
   {
     "ContainingType": "FalareBackend.Controllers.AulaController",
-    "Method": "BuscarAulas",
-    "RelativePath": "api/Aula/aula",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "FalareBackend.Controllers.AulaController",
     "Method": "CadastrarAula",
     "RelativePath": "api/Aula/aula",
     "HttpMethod": "POST",
@@ -121,6 +111,16 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "FalareBackend.Controllers.AulaController",
+    "Method": "BuscarAulas",
+    "RelativePath": "api/Aula/aulas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FalareBackend.Controllers.AuthController",
     "Method": "Entrar",
     "RelativePath": "api/Auth/entrar",
@@ -144,6 +144,43 @@
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.ChamadaController",
+    "Method": "BuscarChamada",
+    "RelativePath": "api/Chamada/chamada",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "turmaId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "data",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.ChamadaController",
+    "Method": "LancarChamada",
+    "RelativePath": "api/Chamada/chamada",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.LancarChamadaRequest",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

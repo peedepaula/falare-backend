@@ -16,13 +16,13 @@ namespace FalareBackend.Services
 
         public async Task<List<AulaResponse>> BuscarAulasService()
         {
-            var query = _context.Aulas.AsNoTracking().AsQueryable();
-
-            return await query
+            return await _context.Aulas
+                .AsNoTracking()
                 .OrderBy(a => a.Data)
                 .Select(a => new AulaResponse
                 {
                     Id = a.Id,
+                    TurmaId = a.TurmaId,
                     Data = a.Data
                 })
                 .ToListAsync();
@@ -30,19 +30,25 @@ namespace FalareBackend.Services
 
         public async Task<(AulaResponse? Aula, string? Erro)> CadastrarAulaService(CadastrarAulaRequest request)
         {
+            var data = RegrasAcademicas.DataDaAula(request.Data);
+
+            // RN-06
+            if (RegrasAcademicas.ParaDateOnly(data) > RegrasAcademicas.Hoje())
+                return (null, "data_futura");
+
             var turmaExiste = await _context.Turmas.AnyAsync(t => t.Id == request.TurmaId);
             if (!turmaExiste)
                 return (null, "turma_nao_encontrada");
 
             var jaExiste = await _context.Aulas.AnyAsync(a =>
-                a.TurmaId == request.TurmaId && a.Data == request.Data);
+                a.TurmaId == request.TurmaId && a.Data == data);
             if (jaExiste)
                 return (null, "aula_duplicada");
 
             var aula = new Aula
             {
                 TurmaId = request.TurmaId,
-                Data = request.Data
+                Data = data
             };
 
             _context.Aulas.Add(aula);

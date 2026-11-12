@@ -17,7 +17,7 @@ namespace FalareBackend.Controllers
         }
 
         [Authorize(Roles = "Secretaria,Professor")]
-        [HttpGet("aula")]
+        [HttpGet("aulas")]
         public async Task<IActionResult> BuscarAulas()
         {
             return Ok(await _aulaService.BuscarAulasService());
@@ -31,6 +31,7 @@ namespace FalareBackend.Controllers
 
             return erro switch
             {
+                "data_futura" => BadRequest(new { mensagem = "Não é possível lançar aula com data futura" }),
                 "turma_nao_encontrada" => NotFound(new { mensagem = "Turma não encontrada" }),
                 "aula_duplicada" => Conflict(new { mensagem = "Já existe uma aula dessa turma nesta data" }),
                 _ => StatusCode(201, aula)

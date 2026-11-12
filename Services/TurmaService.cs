@@ -18,6 +18,17 @@ namespace FalareBackend.Services
 
         private static bool DiasSaoValidos(string[] dias) =>
             dias.Length > 0 && dias.All(d => DiasValidos.Contains(d));
+
+        // RN-05: professor não pode ter duas turmas no mesmo dia e horário
+        private async Task<bool> ProfessorTemConflitoAsync(Guid professorId, string[] dias, TimeOnly horario, Guid? ignorarTurmaId)
+        {
+            var outras = await _context.Turmas.AsNoTracking()
+                .Where(t => t.ProfessorId == professorId && t.Horario == horario && t.Id != ignorarTurmaId)
+                .Select(t => t.Dias)
+                .ToListAsync();
+            return outras.Any(d => d.Intersect(dias).Any());
+        }
+
         public async Task<List<TurmaResponse>> BuscarTurmasService()
         {
             return await _context.Turmas
@@ -37,6 +48,7 @@ namespace FalareBackend.Services
                 })
                 .ToListAsync();
         }
+
         public async Task<(TurmaResponse? Turma, string? Erro)> CadastrarTurmaService(CadastrarTurmasRequest request)
         {
             if (!DiasSaoValidos(request.Dias))
@@ -47,15 +59,19 @@ namespace FalareBackend.Services
             if (professor == null)
                 return (null, "professor_nao_encontrado");
 
+            var dias = request.Dias.Distinct().ToArray();
+            if (await ProfessorTemConflitoAsync(professor.Id, dias, request.Horario, null))
+                return (null, "conflito_horario_professor");
+
             var turma = new Turma
             {
                 Idioma = request.Idioma,
                 Nivel = request.Nivel,
-                Dias = request.Dias.Distinct().ToArray(),
+                Dias = dias,
                 Horario = request.Horario,
                 ProfessorId = professor.Id,
                 Matriculados = 0,
-                Vagas = request.Vagas
+                Vagas = Math.Min(request.Vagas, RegrasAcademicas.VagasPorTurma)
             };
 
             _context.Turmas.Add(turma);
@@ -89,6 +105,8 @@ namespace FalareBackend.Services
 
             if (request.Vagas.HasValue)
             {
+                if (request.Vagas.Value > RegrasAcademicas.VagasPorTurma)
+                    return (null, "vagas_acima_do_limite");
                 if (request.Vagas.Value < turma.Matriculados)
                     return (null, "vagas_menor_que_matriculados");
                 turma.Vagas = request.Vagas.Value;
@@ -97,6 +115,10 @@ namespace FalareBackend.Services
             if (request.Idioma.HasValue) turma.Idioma = request.Idioma.Value;
             if (request.Nivel.HasValue) turma.Nivel = request.Nivel.Value;
             if (request.Horario.HasValue) turma.Horario = request.Horario.Value;
+
+            // RN-05 com os valores finais
+            if (await ProfessorTemConflitoAsync(turma.ProfessorId, turma.Dias, turma.Horario, turma.Id))
+                return (null, "conflito_horario_professor");
 
             turma.AtualizadoEm = DateTime.UtcNow;
             await _context.SaveChangesAsync();

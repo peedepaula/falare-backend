@@ -35,6 +35,8 @@ namespace FalareBackend.Controllers
                 "turma_nao_encontrada" => NotFound(new { mensagem = "Turma não encontrada" }),
                 "turma_cheia" => Conflict(new { mensagem = "Turma sem vagas" }),
                 "ja_matriculado" => Conflict(new { mensagem = "Aluno já matriculado nesta turma" }),
+                "pendencia_financeira" => Conflict(new { mensagem = "Aluno com 2 ou mais mensalidades em aberto" }),
+                "conflito_horario" => Conflict(new { mensagem = "Aluno já tem turma neste dia e horário" }),
                 _ => StatusCode(201, matricula)
             };
         }
@@ -43,12 +45,18 @@ namespace FalareBackend.Controllers
         [HttpPatch("matricula/{id:guid}")]
         public async Task<IActionResult> AtualizarMatricula(Guid id, [FromBody] AtualizarMatriculaRequest request)
         {
-            var (matricula, erro) = await _matriculaService.AtualizarMatriculaService(id, request);
+            var (matricula, erro) = await _matriculaService
+                .AtualizarMatriculaService(id, request, User.IsInRole("Secretaria"));
 
             return erro switch
             {
                 "nao_encontrada" => NotFound(new { mensagem = "Matrícula não encontrada" }),
-                "turma_cheia" => Conflict(new { mensagem = "Turma sem vagas" }),
+                "matricula_certificada" => Conflict(new { mensagem = "Matrícula já certificada não pode ser alterada" }),
+                "sem_permissao_status" => StatusCode(403, new { mensagem = "Apenas a secretaria altera o status" }),
+                "transicao_invalida" => Conflict(new { mensagem = "Transição de status não permitida" }),
+                "nao_aprovado" => Conflict(new { mensagem = "Aluno não atingiu os critérios de aprovação" }),
+                "trancamento_fora_do_prazo" => Conflict(new { mensagem = "Trancamento só é permitido até a metade do semestre" }),
+                "pendencia_financeira" => Conflict(new { mensagem = "Aluno com 2 ou mais mensalidades em aberto" }),
                 _ => Ok(matricula)
             };
         }

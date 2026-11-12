@@ -139,7 +139,7 @@
         }
       }
     },
-    "/api/Aula/aula": {
+    "/api/Aula/aulas": {
       "get": {
         "tags": [
           "Aula"
@@ -149,7 +149,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Aula/aula": {
       "post": {
         "tags": [
           "Aula"
@@ -241,6 +243,66 @@
         "tags": [
           "Auth"
         ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Chamada/chamada": {
+      "get": {
+        "tags": [
+          "Chamada"
+        ],
+        "parameters": [
+          {
+            "name": "turmaId",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "data",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Chamada"
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LancarChamadaRequest"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LancarChamadaRequest"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/LancarChamadaRequest"
+              }
+            }
+          },
+          "required": true
+        },
         "responses": {
           "200": {
             "description": "OK"
@@ -886,7 +948,7 @@
             "format": "uuid"
           },
           "vagas": {
-            "maximum": 1000,
+            "maximum": 12,
             "minimum": 1,
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
@@ -1042,7 +1104,7 @@
             "format": "uuid"
           },
           "vagas": {
-            "maximum": 1000,
+            "maximum": 12,
             "minimum": 1,
             "pattern": "^-?(?:0|[1-9]\\d*)$",
             "type": [
@@ -1055,6 +1117,49 @@
       },
       "Idioma": {
         "type": "integer"
+      },
+      "ItemChamadaRequest": {
+        "required": [
+          "matriculaId"
+        ],
+        "type": "object",
+        "properties": {
+          "matriculaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "presente": {
+            "type": "boolean"
+          },
+          "comAtestado": {
+            "type": "boolean"
+          }
+        }
+      },
+      "LancarChamadaRequest": {
+        "required": [
+          "turmaId",
+          "data",
+          "itens"
+        ],
+        "type": "object",
+        "properties": {
+          "turmaId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "data": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "itens": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ItemChamadaRequest"
+            }
+          }
+        }
       },
       "LoginRequest": {
         "type": "object",
@@ -1106,6 +1211,9 @@
     },
     {
       "name": "Auth"
+    },
+    {
+      "name": "Chamada"
     },
     {
       "name": "Matricula"

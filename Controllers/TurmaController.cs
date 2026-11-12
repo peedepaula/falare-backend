@@ -1,7 +1,6 @@
 ﻿using FalareBackend.DTOs;
 using FalareBackend.Services;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FalareBackend.Controllers
@@ -34,6 +33,7 @@ namespace FalareBackend.Controllers
             {
                 "dias_invalidos" => BadRequest(new { mensagem = "Dias válidos: seg, ter, qua, qui, sex, sab, dom" }),
                 "professor_nao_encontrado" => NotFound(new { mensagem = "Professor não encontrado" }),
+                "conflito_horario_professor" => Conflict(new { mensagem = "Professor já tem turma neste dia e horário" }),
                 _ => StatusCode(201, turma)
             };
         }
@@ -49,7 +49,9 @@ namespace FalareBackend.Controllers
                 "nao_encontrada" => NotFound(new { mensagem = "Turma não encontrada" }),
                 "dias_invalidos" => BadRequest(new { mensagem = "Dias válidos: seg, ter, qua, qui, sex, sab, dom" }),
                 "professor_nao_encontrado" => NotFound(new { mensagem = "Professor não encontrado" }),
+                "vagas_acima_do_limite" => BadRequest(new { mensagem = "Turma não pode ter mais de 12 vagas" }),
                 "vagas_menor_que_matriculados" => BadRequest(new { mensagem = "Vagas não pode ser menor que o número de matriculados" }),
+                "conflito_horario_professor" => Conflict(new { mensagem = "Professor já tem turma neste dia e horário" }),
                 _ => Ok(turma)
             };
         }
