@@ -1,1 +1,11 @@
-﻿
+﻿# Visual Studio
+.vs/
+bin/
+obj/
+
+# Configurações locais
+appsettings.Development.json
+
+# Usuário do Visual Studio
+*.user
+*.suo
