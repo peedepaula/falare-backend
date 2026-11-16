@@ -310,7 +310,7 @@
         }
       }
     },
-    "/api/Matricula/matricula": {
+    "/api/Matricula/matriculas": {
       "get": {
         "tags": [
           "Matricula"
@@ -320,7 +320,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Matricula/matricula": {
       "post": {
         "tags": [
           "Matricula"

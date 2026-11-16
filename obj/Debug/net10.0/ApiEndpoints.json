@@ -185,16 +185,6 @@
   },
   {
     "ContainingType": "FalareBackend.Controllers.MatriculaController",
-    "Method": "BuscarMatriculas",
-    "RelativePath": "api/Matricula/matricula",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "FalareBackend.Controllers.MatriculaController",
     "Method": "CadastrarMatricula",
     "RelativePath": "api/Matricula/matricula",
     "HttpMethod": "POST",
@@ -244,6 +234,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.MatriculaController",
+    "Method": "BuscarMatriculas",
+    "RelativePath": "api/Matricula/matriculas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   },
   {

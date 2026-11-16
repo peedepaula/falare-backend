@@ -17,7 +17,7 @@ namespace FalareBackend.Controllers
         }
 
         [Authorize(Roles = "Secretaria,Professor")]
-        [HttpGet("matricula")]
+        [HttpGet("matriculas")]
         public async Task<IActionResult> BuscarMatriculas()
         {
             return Ok(await _matriculaService.BuscarMatriculasService());
