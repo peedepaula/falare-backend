@@ -41,7 +41,7 @@ namespace FalareBackend.Controllers
         }
         // Só para secretaria
         [Authorize(Roles = "Secretaria")]
-        [HttpPatch("professor")]
+        [HttpPatch("professor/{id:guid}")]
         public async Task<IActionResult> AtualizarProfessor(Guid id, [FromBody] AtualizarProfessorRequest request)
         {
             var (professor, erro) = await _professorService.AtualizarProfessorService(id, request);
@@ -54,7 +54,7 @@ namespace FalareBackend.Controllers
             };
         }
         [Authorize(Roles = "Secretaria")]
-        [HttpDelete("professor")]
+        [HttpDelete("professor/{id:guid}")]
         public async Task<IActionResult> DeletarProfessor(Guid id)
         {
             var apagou = await _professorService.DeletarProfessorService(id);

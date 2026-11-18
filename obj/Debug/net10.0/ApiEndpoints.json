@@ -350,7 +350,7 @@
   {
     "ContainingType": "FalareBackend.Controllers.ProfessorController",
     "Method": "AtualizarProfessor",
-    "RelativePath": "api/Professor/professor",
+    "RelativePath": "api/Professor/professor/{id}",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -358,7 +358,7 @@
       {
         "Name": "id",
         "Type": "System.Guid",
-        "IsRequired": false
+        "IsRequired": true
       },
       {
         "Name": "request",
@@ -371,7 +371,7 @@
   {
     "ContainingType": "FalareBackend.Controllers.ProfessorController",
     "Method": "DeletarProfessor",
-    "RelativePath": "api/Professor/professor",
+    "RelativePath": "api/Professor/professor/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -379,7 +379,7 @@
       {
         "Name": "id",
         "Type": "System.Guid",
-        "IsRequired": false
+        "IsRequired": true
       }
     ],
     "ReturnTypes": []
