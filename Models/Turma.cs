@@ -11,7 +11,8 @@ public class Turma
     /// <summary>Valores permitidos: seg, ter, qua, qui, sex, sab, dom.</summary>
     public string[] Dias { get; set; } = Array.Empty<string>();
 
-    public TimeOnly Horario { get; set; }
+    public TimeOnly HorarioInicio { get; set; }
+    public TimeOnly HorarioFim { get; set; }
     public Guid ProfessorId { get; set; }
     public int Matriculados { get; set; }
     public int Vagas { get; set; }

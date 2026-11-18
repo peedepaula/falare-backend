@@ -14,7 +14,8 @@ public class TurmaConfiguration : IEntityTypeConfiguration<Turma>
         e.Property(x => x.Idioma).HasColumnName("idioma");
         e.Property(x => x.Nivel).HasColumnName("nivel");
         e.Property(x => x.Dias).HasColumnName("dias").HasColumnType("text[]");
-        e.Property(x => x.Horario).HasColumnName("horario");
+        e.Property(t => t.HorarioInicio).HasColumnName("horario_inicio");
+        e.Property(t => t.HorarioFim).HasColumnName("horario_fim");
         e.Property(x => x.ProfessorId).HasColumnName("professor_id");
         e.Property(x => x.Matriculados).HasColumnName("matriculados").HasDefaultValue(0);
         e.Property(x => x.Vagas).HasColumnName("vagas");

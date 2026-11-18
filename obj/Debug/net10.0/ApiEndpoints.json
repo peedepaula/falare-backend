@@ -396,18 +396,8 @@
   },
   {
     "ContainingType": "FalareBackend.Controllers.TurmaController",
-    "Method": "BuscarTurmas",
-    "RelativePath": "api/Turma/turmas",
-    "HttpMethod": "GET",
-    "IsController": true,
-    "Order": 0,
-    "Parameters": [],
-    "ReturnTypes": []
-  },
-  {
-    "ContainingType": "FalareBackend.Controllers.TurmaController",
     "Method": "CadastrarTurma",
-    "RelativePath": "api/Turma/turmas",
+    "RelativePath": "api/Turma/turma",
     "HttpMethod": "POST",
     "IsController": true,
     "Order": 0,
@@ -423,7 +413,7 @@
   {
     "ContainingType": "FalareBackend.Controllers.TurmaController",
     "Method": "AtualizarTurma",
-    "RelativePath": "api/Turma/turmas/{id}",
+    "RelativePath": "api/Turma/turma/{id}",
     "HttpMethod": "PATCH",
     "IsController": true,
     "Order": 0,
@@ -444,7 +434,7 @@
   {
     "ContainingType": "FalareBackend.Controllers.TurmaController",
     "Method": "DeletarTurma",
-    "RelativePath": "api/Turma/turmas/{id}",
+    "RelativePath": "api/Turma/turma/{id}",
     "HttpMethod": "DELETE",
     "IsController": true,
     "Order": 0,
@@ -455,6 +445,16 @@
         "IsRequired": true
       }
     ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.TurmaController",
+    "Method": "BuscarTurmas",
+    "RelativePath": "api/Turma/turmas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
     "ReturnTypes": []
   }
 ]

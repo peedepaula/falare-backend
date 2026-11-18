@@ -84,7 +84,8 @@ namespace FalareBackend.Services
             var diasDasOutras = await _context.Matriculas
                 .Where(m => m.AlunoId == aluno.Id
                          && m.Status == StatusMatricula.Ativa
-                         && m.Turma.Horario == turma.Horario)
+                         && m.Turma.HorarioInicio < turma.HorarioFim
+                         && turma.HorarioInicio < m.Turma.HorarioFim)
                 .Select(m => m.Turma.Dias)
                 .ToListAsync();
             if (diasDasOutras.Any(d => d.Intersect(turma.Dias).Any()))

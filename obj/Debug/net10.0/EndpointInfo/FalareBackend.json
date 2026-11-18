@@ -675,7 +675,9 @@
             "description": "OK"
           }
         }
-      },
+      }
+    },
+    "/api/Turma/turma": {
       "post": {
         "tags": [
           "Turma"
@@ -707,7 +709,7 @@
         }
       }
     },
-    "/api/Turma/turmas/{id}": {
+    "/api/Turma/turma/{id}": {
       "patch": {
         "tags": [
           "Turma"
@@ -939,7 +941,14 @@
               "type": "string"
             }
           },
-          "horario": {
+          "horarioInicio": {
+            "type": [
+              "null",
+              "string"
+            ],
+            "format": "time"
+          },
+          "horarioFim": {
             "type": [
               "null",
               "string"
@@ -1083,7 +1092,8 @@
       "CadastrarTurmasRequest": {
         "required": [
           "dias",
-          "horario",
+          "horarioInicio",
+          "horarioFim",
           "professorId"
         ],
         "type": "object",
@@ -1101,7 +1111,11 @@
               "type": "string"
             }
           },
-          "horario": {
+          "horarioInicio": {
+            "type": "string",
+            "format": "time"
+          },
+          "horarioFim": {
             "type": "string",
             "format": "time"
           },

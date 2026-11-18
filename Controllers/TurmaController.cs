@@ -24,7 +24,7 @@ namespace FalareBackend.Controllers
         }
 
         [Authorize(Roles = "Secretaria")]
-        [HttpPost("turmas")]
+        [HttpPost("turma")]
         public async Task<IActionResult> CadastrarTurma([FromBody] CadastrarTurmasRequest request)
         {
             var (turma, erro) = await _turmaService.CadastrarTurmaService(request);
@@ -39,7 +39,7 @@ namespace FalareBackend.Controllers
         }
 
         [Authorize(Roles = "Secretaria")]
-        [HttpPatch("turmas/{id:guid}")]
+        [HttpPatch("turma/{id:guid}")]
         public async Task<IActionResult> AtualizarTurma(Guid id, [FromBody] AtualizarTurmasRequest request)
         {
             var (turma, erro) = await _turmaService.AtualizarTurmaService(id, request);
@@ -57,7 +57,7 @@ namespace FalareBackend.Controllers
         }
 
         [Authorize(Roles = "Secretaria")]
-        [HttpDelete("turmas/{id:guid}")]
+        [HttpDelete("turma/{id:guid}")]
         public async Task<IActionResult> DeletarTurma(Guid id)
         {
             var apagou = await _turmaService.DeletarTurmaService(id);

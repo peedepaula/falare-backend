@@ -12,7 +12,10 @@ namespace FalareBackend.DTOs
         public string[] Dias { get; set; } = Array.Empty<string>();
 
         [Required]
-        public TimeOnly Horario { get; set; }
+        public TimeOnly HorarioInicio { get; set; }
+
+        [Required]
+        public TimeOnly HorarioFim { get; set; }
 
         [Required]
         public Guid ProfessorId { get; set; }
@@ -26,7 +29,8 @@ namespace FalareBackend.DTOs
         public Idioma? Idioma { get; set; }
         public Nivel? Nivel { get; set; }
         public string[]? Dias { get; set; }
-        public TimeOnly? Horario { get; set; }
+        public TimeOnly? HorarioInicio { get; set; }
+        public TimeOnly? HorarioFim { get; set; }
         public Guid? ProfessorId { get; set; }
 
         [Range(1, 12)]
@@ -39,10 +43,13 @@ namespace FalareBackend.DTOs
         public Idioma Idioma { get; set; }
         public Nivel Nivel { get; set; }
         public string[] Dias { get; set; } = Array.Empty<string>();
-        public TimeOnly Horario { get; set; }
+        public TimeOnly HorarioInicio { get; set; }
+        public TimeOnly HorarioFim { get; set; }
         public Guid ProfessorId { get; set; }
         public string ProfessorNome { get; set; } = string.Empty;
         public int Matriculados { get; set; }
         public int Vagas { get; set; }
+
+        public DateTime CriadoEm { get; set; }
     }
 }
