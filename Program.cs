@@ -101,7 +101,7 @@ builder.Services.AddCors(options =>
         //      .AllowAnyHeader()
         //      .AllowAnyMethod();
 
-        policy.WithOrigins("https://falare-frontend.pages.dev/")
+        policy.WithOrigins("https://falare-frontend.pages.dev")
                       .AllowAnyHeader()
                       .AllowAnyMethod();
 
