@@ -28,6 +28,7 @@ builder.Services.AddScoped<AlunoService>();
 builder.Services.AddScoped<MatriculaService>();
 builder.Services.AddScoped<AulaService>();
 builder.Services.AddScoped<PagamentoService>();
+builder.Services.AddScoped<ChamadaService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi(options =>

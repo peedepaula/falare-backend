@@ -48,6 +48,7 @@ namespace FalareBackend.Services
                 .Select(m => new AlunoResponse
                 {
                     Id = m.Aluno.Id,
+                    MatriculaId = m.Id,
                     Nome = m.Aluno.Nome,
                     Email = m.Aluno.Email,
                     Telefone = m.Aluno.Telefone
