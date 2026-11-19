@@ -70,12 +70,74 @@
   },
   {
     "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "BuscarAlunoCompleto",
+    "RelativePath": "api/Aluno/aluno/completo/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "FinanceiroAluno",
+    "RelativePath": "api/Aluno/aluno/financeiro",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "FrequenciaAluno",
+    "RelativePath": "api/Aluno/aluno/frequencia",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "NotaAluno",
+    "RelativePath": "api/Aluno/aluno/nota",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
     "Method": "BuscarAlunos",
     "RelativePath": "api/Aluno/alunos",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
     "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "BuscarAlunosPorTurma",
+    "RelativePath": "api/Aluno/alunos/por-turma/{turmaId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "turmaId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
     "ReturnTypes": []
   },
   {

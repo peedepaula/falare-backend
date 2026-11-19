@@ -32,4 +32,12 @@ namespace FalareBackend.DTOs
         public DateTime CriadoEm { get; set; }
         public DateTime AtualizadoEm { get; set; }
     }
+
+    public class PagamentoDetalheResponse : PagamentoResponse
+    {
+        public string? Email { get; set; }
+        public string? Telefone { get; set; }
+        public Idioma? Idioma { get; set; }
+        public Nivel? Nivel { get; set; }
+    }
 }

@@ -33,9 +33,14 @@ namespace FalareBackend.Services
             return outras.Any(d => d.Intersect(dias).Any());
         }
 
-        public async Task<List<TurmaResponse>> BuscarTurmasService()
+        public async Task<List<TurmaResponse>> BuscarTurmasService(Guid? professorId = null)
         {
-            return await _context.Turmas
+            var query = _context.Turmas.AsNoTracking().AsQueryable();
+
+            if (professorId.HasValue)
+                query = query.Where(t => t.ProfessorId == professorId.Value);
+
+            return await query
                 .AsNoTracking()
                 .OrderBy(t => t.Idioma).ThenBy(t => t.Nivel)
                 .Select(t => new TurmaResponse

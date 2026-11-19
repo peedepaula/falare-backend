@@ -1,6 +1,7 @@
 ﻿using FalareBackend.Data;
 using FalareBackend.DTOs;
 using FalareBackend.Models;
+using FalareBackend.Models.Enums;
 using Microsoft.EntityFrameworkCore;
 
 namespace FalareBackend.Services
@@ -36,12 +37,12 @@ namespace FalareBackend.Services
                 .ToListAsync();
         }
 
-        public async Task<PagamentoResponse?> BuscarPagamentoService(Guid id)
+        public async Task<PagamentoDetalheResponse?> BuscarPagamentoService(Guid id)
         {
             return await _context.Pagamentos
                 .AsNoTracking()
                 .Where(p => p.Id == id)
-                .Select(p => new PagamentoResponse
+                .Select(p => new PagamentoDetalheResponse
                 {
                     Id = p.Id,
                     AlunoId = p.AlunoId,
@@ -49,7 +50,22 @@ namespace FalareBackend.Services
                     Status = p.Status,
                     Valor = p.Valor,
                     CriadoEm = p.CriadoEm,
-                    AtualizadoEm = p.AtualizadoEm
+                    AtualizadoEm = p.AtualizadoEm,
+
+                    Email = p.Aluno.Email,
+                    Telefone = p.Aluno.Telefone,
+
+                    Idioma = p.Aluno.Matriculas
+                        .OrderByDescending(m => m.Status == StatusMatricula.Ativa)
+                        .ThenByDescending(m => m.CriadoEm)
+                        .Select(m => (Idioma?)m.Turma.Idioma)
+                        .FirstOrDefault(),
+
+                    Nivel = p.Aluno.Matriculas
+                        .OrderByDescending(m => m.Status == StatusMatricula.Ativa)
+                        .ThenByDescending(m => m.CriadoEm)
+                        .Select(m => (Nivel?)m.Turma.Nivel)
+                        .FirstOrDefault()
                 })
                 .FirstOrDefaultAsync();
         }

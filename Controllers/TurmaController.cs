@@ -2,6 +2,8 @@
 using FalareBackend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using FalareBackend.Extensions;
+
 
 namespace FalareBackend.Controllers
 {
@@ -16,12 +18,14 @@ namespace FalareBackend.Controllers
             _turmaService = turmaService;
         }
 
-        [Authorize]
+        [Authorize(Roles = "Secretaria,Professor")]
         [HttpGet("turmas")]
         public async Task<IActionResult> BuscarTurmas()
         {
-            return Ok(await _turmaService.BuscarTurmasService());
+            Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
+            return Ok(await _turmaService.BuscarTurmasService(professorId));
         }
+
 
         [Authorize(Roles = "Secretaria")]
         [HttpPost("turma")]

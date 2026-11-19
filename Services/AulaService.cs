@@ -14,21 +14,31 @@ namespace FalareBackend.Services
             _context = context;
         }
 
-        public async Task<List<AulaResponse>> BuscarAulasService()
+        public async Task<List<AulaResponse>> BuscarAulasService(Guid? professorId = null)
         {
-            return await _context.Aulas
+            var query = _context.Aulas.AsNoTracking().AsQueryable();
+
+            if (professorId.HasValue)
+                query = query.Where(a => a.Turma.ProfessorId == professorId.Value);
+
+            return await query
                 .AsNoTracking()
                 .OrderBy(a => a.Data)
                 .Select(a => new AulaResponse
                 {
                     Id = a.Id,
                     TurmaId = a.TurmaId,
-                    Data = a.Data
+                    Data = a.Data,
+                    ProfessorNome = a.Turma.Professor.Nome,
+                    Idioma = a.Turma.Idioma,
+                    Nivel = a.Turma.Nivel,
+                    HorarioInicio = a.Turma.HorarioInicio,
+                    HorarioFim = a.Turma.HorarioFim
                 })
                 .ToListAsync();
         }
 
-        public async Task<(AulaResponse? Aula, string? Erro)> CadastrarAulaService(CadastrarAulaRequest request)
+        public async Task<(AulaResponse? Aula, string? Erro)> CadastrarAulaService(CadastrarAulaRequest request, Guid? professorId = null)
         {
             var data = RegrasAcademicas.DataDaAula(request.Data);
 
@@ -36,8 +46,12 @@ namespace FalareBackend.Services
             if (RegrasAcademicas.ParaDateOnly(data) > RegrasAcademicas.Hoje())
                 return (null, "data_futura");
 
-            var turmaExiste = await _context.Turmas.AnyAsync(t => t.Id == request.TurmaId);
-            if (!turmaExiste)
+            var turma = await _context.Turmas
+                .AsNoTracking()
+                .Include(t => t.Professor)
+                .FirstOrDefaultAsync(t => t.Id == request.TurmaId
+                                       && (professorId == null || t.ProfessorId == professorId));
+            if (turma == null)
                 return (null, "turma_nao_encontrada");
 
             var jaExiste = await _context.Aulas.AnyAsync(a =>
@@ -58,13 +72,19 @@ namespace FalareBackend.Services
             {
                 Id = aula.Id,
                 TurmaId = aula.TurmaId,
-                Data = aula.Data
+                Data = aula.Data,
+                ProfessorNome = turma.Professor.Nome,
+                Idioma = turma.Idioma,
+                Nivel = turma.Nivel,
+                HorarioInicio = turma.HorarioInicio,
+                HorarioFim = turma.HorarioFim
             }, null);
         }
 
-        public async Task<bool> DeletarAulaService(Guid id)
+        public async Task<bool> DeletarAulaService(Guid id, Guid? professorId = null)
         {
-            var aula = await _context.Aulas.FirstOrDefaultAsync(a => a.Id == id);
+            var aula = await _context.Aulas.FirstOrDefaultAsync(a =>
+                a.Id == id && (professorId == null || a.Turma.ProfessorId == professorId));
             if (aula == null)
                 return false;
 

@@ -1,4 +1,5 @@
 ﻿using FalareBackend.DTOs;
+using FalareBackend.Extensions;
 using FalareBackend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -20,14 +21,16 @@ namespace FalareBackend.Controllers
         [HttpGet("aulas")]
         public async Task<IActionResult> BuscarAulas()
         {
-            return Ok(await _aulaService.BuscarAulasService());
+            Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
+            return Ok(await _aulaService.BuscarAulasService(professorId));
         }
 
         [Authorize(Roles = "Secretaria,Professor")]
         [HttpPost("aula")]
         public async Task<IActionResult> CadastrarAula([FromBody] CadastrarAulaRequest request)
         {
-            var (aula, erro) = await _aulaService.CadastrarAulaService(request);
+            Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
+            var (aula, erro) = await _aulaService.CadastrarAulaService(request, professorId);
 
             return erro switch
             {
@@ -42,7 +45,8 @@ namespace FalareBackend.Controllers
         [HttpDelete("aula/{id:guid}")]
         public async Task<IActionResult> DeletarAula(Guid id)
         {
-            var apagou = await _aulaService.DeletarAulaService(id);
+            Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
+            var apagou = await _aulaService.DeletarAulaService(id, professorId);
             return apagou ? NoContent() : NotFound(new { mensagem = "Aula não encontrada" });
         }
     }

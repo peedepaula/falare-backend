@@ -2,6 +2,8 @@
 using FalareBackend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using FalareBackend.Extensions;
+using FalareBackend.Extensions;
 
 namespace FalareBackend.Controllers
 {
@@ -20,14 +22,36 @@ namespace FalareBackend.Controllers
         [HttpGet("alunos")]
         public async Task<IActionResult> BuscarAlunos()
         {
-            return Ok(await _alunoService.BuscarAlunosService());
+            Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
+            return Ok(await _alunoService.BuscarAlunosService(professorId));
+        }
+
+        [Authorize(Roles = "Secretaria,Professor")]
+        [HttpGet("alunos/por-turma/{turmaId:guid}")]
+        public async Task<IActionResult> BuscarAlunosPorTurma(Guid turmaId)
+        {
+            Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
+            var alunos = await _alunoService.BuscarAlunosPorTurmaService(turmaId, professorId);
+            return Ok(alunos);
         }
 
         [Authorize(Roles = "Secretaria,Professor")]
         [HttpGet("aluno/{id:guid}")]
         public async Task<IActionResult> BuscarAluno(Guid id)
         {
-            var aluno = await _alunoService.BuscarAlunoService(id);
+            Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
+            var aluno = await _alunoService.BuscarAlunoService(id, professorId);
+            return aluno == null
+                ? NotFound(new { mensagem = "Aluno não encontrado" })
+                : Ok(aluno);
+        }
+
+        [Authorize(Roles = "Secretaria,Professor")]
+        [HttpGet("aluno/completo/{id:guid}")]
+        public async Task<IActionResult> BuscarAlunoCompleto(Guid id)
+        {
+            Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
+            var aluno = await _alunoService.BuscarAlunoCompletoService(id, professorId);
             return aluno == null
                 ? NotFound(new { mensagem = "Aluno não encontrado" })
                 : Ok(aluno);
@@ -44,7 +68,7 @@ namespace FalareBackend.Controllers
                 : StatusCode(201, aluno);
         }
 
-        [Authorize(Roles = "Secretaria")]
+        [Authorize(Roles = "Secretaria,Professor")]
         [HttpPatch("aluno/{id:guid}")]
         public async Task<IActionResult> AtualizarAluno(Guid id, [FromBody] AtualizarAlunoRequest request)
         {
@@ -65,5 +89,28 @@ namespace FalareBackend.Controllers
             var apagou = await _alunoService.DeletarAlunoService(id);
             return apagou ? NoContent() : NotFound(new { mensagem = "Aluno não encontrado" });
         }
+
+
+        [Authorize(Roles = "Aluno")]
+        [HttpGet("aluno/frequencia")]
+        public async Task<IActionResult> FrequenciaAluno()
+        {
+            return Ok(await _alunoService.FrequenciaAlunoService(User.UsuarioId()));
+        }
+
+        [Authorize(Roles = "Aluno")]
+        [HttpGet("aluno/nota")]
+        public async Task<IActionResult> NotaAluno()
+        {
+            return Ok(await _alunoService.NotaAlunoService(User.UsuarioId()));
+        }
+
+        [Authorize(Roles = "Aluno")]
+        [HttpGet("aluno/financeiro")]
+        public async Task<IActionResult> FinanceiroAluno()
+        {
+            return Ok(await _alunoService.FinanceiroAlunoService(User.UsuarioId()));
+        }
+
     }
 }
