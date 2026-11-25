@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "o4lTGaAtgvc=",
+  "dgSpecHash": "AxAnvxX/DaU=",
   "success": true,
-  "projectFilePath": "C:\\Users\\peede\\source\\repos\\FalareBackend\\FalareBackend\\FalareBackend.csproj",
+  "projectFilePath": "C:\\Users\\peede\\source\\repos\\FalareBackend\\FalareBackEnd\\FalareBackend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\peede\\.nuget\\packages\\bcrypt.net-next\\4.2.0\\bcrypt.net-next.4.2.0.nupkg.sha512",
     "C:\\Users\\peede\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
