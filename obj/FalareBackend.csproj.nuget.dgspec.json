@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\peede\\source\\repos\\FalareBackend\\FalareBackEnd\\FalareBackend.csproj": {}
+    "C:\\Users\\peede\\source\\repos\\FalareBackend\\Falarebackend\\FalareBackend.csproj": {}
   },
   "projects": {
-    "C:\\Users\\peede\\source\\repos\\FalareBackend\\FalareBackEnd\\FalareBackend.csproj": {
+    "C:\\Users\\peede\\source\\repos\\FalareBackend\\Falarebackend\\FalareBackend.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\peede\\source\\repos\\FalareBackend\\FalareBackEnd\\FalareBackend.csproj",
+        "projectUniqueName": "C:\\Users\\peede\\source\\repos\\FalareBackend\\Falarebackend\\FalareBackend.csproj",
         "projectName": "FalareBackend",
-        "projectPath": "C:\\Users\\peede\\source\\repos\\FalareBackend\\FalareBackEnd\\FalareBackend.csproj",
+        "projectPath": "C:\\Users\\peede\\source\\repos\\FalareBackend\\Falarebackend\\FalareBackend.csproj",
         "packagesPath": "C:\\Users\\peede\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\peede\\source\\repos\\FalareBackend\\FalareBackEnd\\obj\\",
+        "outputPath": "C:\\Users\\peede\\source\\repos\\FalareBackend\\Falarebackend\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

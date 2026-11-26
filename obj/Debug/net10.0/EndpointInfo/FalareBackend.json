@@ -15,6 +15,52 @@
         "tags": [
           "Aluno"
         ],
+        "parameters": [
+          {
+            "name": "apenasEmRisco",
+            "in": "query",
+            "schema": {
+              "type": "boolean",
+              "default": false
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Aluno/aluno/status/inicio": {
+      "get": {
+        "tags": [
+          "Aluno"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Aluno/aluno/certificado": {
+      "get": {
+        "tags": [
+          "Aluno"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/Aluno/aluno/trancar": {
+      "patch": {
+        "tags": [
+          "Aluno"
+        ],
         "responses": {
           "200": {
             "description": "OK"
@@ -221,7 +267,7 @@
         }
       }
     },
-    "/Analytics/aluno": {
+    "/api/Analytics/aluno": {
       "get": {
         "tags": [
           "Analytics"
@@ -233,7 +279,7 @@
         }
       }
     },
-    "/Analytics/geral": {
+    "/api/Analytics/geral": {
       "get": {
         "tags": [
           "Analytics"
@@ -245,7 +291,7 @@
         }
       }
     },
-    "/Analytics/aula": {
+    "/api/Analytics/aula": {
       "get": {
         "tags": [
           "Analytics"
@@ -257,7 +303,7 @@
         }
       }
     },
-    "/Analytics/turma": {
+    "/api/Analytics/turma": {
       "get": {
         "tags": [
           "Analytics"
@@ -269,7 +315,7 @@
         }
       }
     },
-    "/Analytics/pagamento": {
+    "/api/Analytics/pagamento": {
       "get": {
         "tags": [
           "Analytics"
@@ -281,7 +327,7 @@
         }
       }
     },
-    "/Analytics/matricula": {
+    "/api/Analytics/matricula": {
       "get": {
         "tags": [
           "Analytics"
@@ -293,7 +339,7 @@
         }
       }
     },
-    "/Analytics/professor": {
+    "/api/Analytics/professor": {
       "get": {
         "tags": [
           "Analytics"

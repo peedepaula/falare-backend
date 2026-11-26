@@ -4,7 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FalareBackend.Controllers
 {
-    [Route("/api/Analytics")]
+    [Route("api/[controller]")]
     [ApiController]
     [Authorize(Roles = "Secretaria")]
     public class AnalyticsController : ControllerBase
