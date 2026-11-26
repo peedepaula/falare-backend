@@ -1,0 +1,592 @@
+[
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Aluno",
+    "RelativePath": "Analytics/aluno",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Aula",
+    "RelativePath": "Analytics/aula",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Geral",
+    "RelativePath": "Analytics/geral",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Matricula",
+    "RelativePath": "Analytics/matricula",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Pagamento",
+    "RelativePath": "Analytics/pagamento",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Professor",
+    "RelativePath": "Analytics/professor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Turma",
+    "RelativePath": "Analytics/turma",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "CadastrarAluno",
+    "RelativePath": "api/Aluno/aluno",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.CadastrarAlunoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "BuscarAluno",
+    "RelativePath": "api/Aluno/aluno/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "AtualizarAluno",
+    "RelativePath": "api/Aluno/aluno/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.AtualizarAlunoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "DeletarAluno",
+    "RelativePath": "api/Aluno/aluno/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "BuscarAlunoCompleto",
+    "RelativePath": "api/Aluno/aluno/completo/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "FinanceiroAluno",
+    "RelativePath": "api/Aluno/aluno/financeiro",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "FrequenciaAluno",
+    "RelativePath": "api/Aluno/aluno/frequencia",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "NotaAluno",
+    "RelativePath": "api/Aluno/aluno/nota",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "BuscarAlunos",
+    "RelativePath": "api/Aluno/alunos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AlunoController",
+    "Method": "BuscarAlunosPorTurma",
+    "RelativePath": "api/Aluno/alunos/por-turma/{turmaId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "turmaId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AulaController",
+    "Method": "CadastrarAula",
+    "RelativePath": "api/Aula/aula",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.CadastrarAulaRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AulaController",
+    "Method": "DeletarAula",
+    "RelativePath": "api/Aula/aula/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AulaController",
+    "Method": "BuscarAulas",
+    "RelativePath": "api/Aula/aulas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AuthController",
+    "Method": "Entrar",
+    "RelativePath": "api/Auth/entrar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.LoginRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AuthController",
+    "Method": "Me",
+    "RelativePath": "api/Auth/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.ChamadaController",
+    "Method": "BuscarChamada",
+    "RelativePath": "api/Chamada/chamada",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "turmaId",
+        "Type": "System.Guid",
+        "IsRequired": false
+      },
+      {
+        "Name": "data",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.ChamadaController",
+    "Method": "LancarChamada",
+    "RelativePath": "api/Chamada/chamada",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.LancarChamadaRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.MatriculaController",
+    "Method": "CadastrarMatricula",
+    "RelativePath": "api/Matricula/matricula",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.CadastrarMatriculaRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.MatriculaController",
+    "Method": "AtualizarMatricula",
+    "RelativePath": "api/Matricula/matricula/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.AtualizarMatriculaRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.MatriculaController",
+    "Method": "DeletarMatricula",
+    "RelativePath": "api/Matricula/matricula/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.MatriculaController",
+    "Method": "BuscarMatriculas",
+    "RelativePath": "api/Matricula/matriculas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.PagamentoController",
+    "Method": "CadastrarPagamento",
+    "RelativePath": "api/Pagamento/pagamento",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.CadastrarPagamentoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.PagamentoController",
+    "Method": "BuscarPagamento",
+    "RelativePath": "api/Pagamento/pagamento/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.PagamentoController",
+    "Method": "AtualizarPagamento",
+    "RelativePath": "api/Pagamento/pagamento/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.AtualizarPagamentoRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.PagamentoController",
+    "Method": "DeletarPagamento",
+    "RelativePath": "api/Pagamento/pagamento/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.PagamentoController",
+    "Method": "BuscarPagamentos",
+    "RelativePath": "api/Pagamento/pagamentos",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "alunoId",
+        "Type": "System.Nullable\u00601[[System.Guid, System.Private.CoreLib, Version=10.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.ProfessorController",
+    "Method": "CadastrarProfessor",
+    "RelativePath": "api/Professor/professor",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.CadastrarProfessorRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.ProfessorController",
+    "Method": "AtualizarProfessor",
+    "RelativePath": "api/Professor/professor/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.AtualizarProfessorRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.ProfessorController",
+    "Method": "DeletarProfessor",
+    "RelativePath": "api/Professor/professor/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.ProfessorController",
+    "Method": "BuscarProfessores",
+    "RelativePath": "api/Professor/professores",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.TurmaController",
+    "Method": "CadastrarTurma",
+    "RelativePath": "api/Turma/turma",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.CadastrarTurmasRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.TurmaController",
+    "Method": "AtualizarTurma",
+    "RelativePath": "api/Turma/turma/{id}",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "request",
+        "Type": "FalareBackend.DTOs.AtualizarTurmasRequest",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.TurmaController",
+    "Method": "DeletarTurma",
+    "RelativePath": "api/Turma/turma/{id}",
+    "HttpMethod": "DELETE",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.TurmaController",
+    "Method": "BuscarTurmas",
+    "RelativePath": "api/Turma/turmas",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  }
+]

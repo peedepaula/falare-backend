@@ -1,9 +1,10 @@
 ﻿using FalareBackend.DTOs;
+using FalareBackend.Extensions;
+using FalareBackend.Extensions;
 using FalareBackend.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using FalareBackend.Extensions;
-using FalareBackend.Extensions;
+using System.Security.Claims;
 
 namespace FalareBackend.Controllers
 {
@@ -20,10 +21,56 @@ namespace FalareBackend.Controllers
 
         [Authorize(Roles = "Secretaria,Professor")]
         [HttpGet("alunos")]
-        public async Task<IActionResult> BuscarAlunos()
+        public async Task<IActionResult> BuscarAlunos([FromQuery] bool apenasEmRisco = false)
         {
             Guid? professorId = User.EhProfessor() ? User.UsuarioId() : null;
-            return Ok(await _alunoService.BuscarAlunosService(professorId));
+            return Ok(await _alunoService.BuscarAlunosService(professorId, apenasEmRisco));
+        }
+
+        [Authorize(Roles = "Aluno")]
+        [HttpGet("aluno/status/inicio")]
+        public async Task<IActionResult> AlunoStatusInicio()
+        {
+            var claim = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            if (!Guid.TryParse(claim, out var alunoId))
+                return Unauthorized();
+
+            return Ok(await _alunoService.AlunoStatusInicioService(alunoId));
+        }
+
+        [Authorize(Roles = "Aluno")]
+        [HttpGet("aluno/certificado")]
+        public async Task<IActionResult> EmitirCertificado()
+        {
+            try
+            {
+                var (pdf, nomeArquivo) = await _alunoService.EmitirCertificadoService(User.UsuarioId());
+                return File(pdf, "application/pdf", nomeArquivo);
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { mensagem = ex.Message });
+            }
+        }
+
+        [Authorize(Roles = "Aluno")]
+        [HttpPatch("aluno/trancar")]
+        public async Task<IActionResult> AlternarTrancamentoMatricula()
+        {
+            try
+            {
+                var novoStatus = await _alunoService.AlternarTrancamentoMatriculaService(User.UsuarioId());
+                return Ok(new { status = novoStatus.ToString() });
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(new { mensagem = ex.Message });
+            }
+            catch (InvalidOperationException ex)
+            {
+                return BadRequest(new { mensagem = ex.Message });
+            }
         }
 
         [Authorize(Roles = "Secretaria,Professor")]
