@@ -10,7 +10,10 @@ using Npgsql;
 using System.Text;
 using System.Text.Json.Serialization;
 
+
 var builder = WebApplication.CreateBuilder(args);
+
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
 
 // Add services to the container.
 
@@ -29,6 +32,7 @@ builder.Services.AddScoped<MatriculaService>();
 builder.Services.AddScoped<AulaService>();
 builder.Services.AddScoped<PagamentoService>();
 builder.Services.AddScoped<ChamadaService>();
+builder.Services.AddScoped<AnalyticsService>();
 
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi(options =>
@@ -97,13 +101,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
     {
-        policy.WithOrigins("http://localhost:4200")
-              .AllowAnyHeader()
-              .AllowAnyMethod();
+        //policy.WithOrigins("http://192.168.0.104:4200")
+        //      .AllowAnyHeader()
+        //      .AllowAnyMethod();
 
-        //policy.WithOrigins("https://falare-frontend.pages.dev")
-        //              .AllowAnyHeader()
-        //              .AllowAnyMethod();
+        policy.WithOrigins("https://falare-frontend.pages.dev")
+                      .AllowAnyHeader()
+                      .AllowAnyMethod();
 
         // .AllowCredentials(); // só se for usar cookie (withCredentials)
     });

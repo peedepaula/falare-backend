@@ -1,5 +1,75 @@
 [
   {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Aluno",
+    "RelativePath": "Analytics/aluno",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Aula",
+    "RelativePath": "Analytics/aula",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Geral",
+    "RelativePath": "Analytics/geral",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Matricula",
+    "RelativePath": "Analytics/matricula",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Pagamento",
+    "RelativePath": "Analytics/pagamento",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Professor",
+    "RelativePath": "Analytics/professor",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "FalareBackend.Controllers.AnalyticsController",
+    "Method": "Turma",
+    "RelativePath": "Analytics/turma",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
     "ContainingType": "FalareBackend.Controllers.AlunoController",
     "Method": "CadastrarAluno",
     "RelativePath": "api/Aluno/aluno",

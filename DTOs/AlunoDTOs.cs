@@ -40,6 +40,15 @@ namespace FalareBackend.DTOs
         public Guid? MatriculaId { get; set; }
         public string? Email { get; set; }
         public string? Telefone { get; set; }
+        public decimal? Media { get; set; }
+        public decimal PercentualFaltas { get; set; }
+        public bool EmRisco { get; set; }
+    }
+
+    public class AlunoStatusInicioResponse
+    {
+        public string StatusFalta { get; set; } = string.Empty;
+        public string StatusCertificado { get; set; } = string.Empty;
     }
 
     public class AlunoCompletoResponse

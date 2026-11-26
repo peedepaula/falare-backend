@@ -3,6 +3,9 @@ using FalareBackend.DTOs;
 using FalareBackend.Models;
 using FalareBackend.Models.Enums;
 using Microsoft.EntityFrameworkCore;
+using QuestPDF.Fluent;
+using QuestPDF.Helpers;
+using QuestPDF.Infrastructure;
 
 namespace FalareBackend.Services
 {
@@ -15,23 +18,153 @@ namespace FalareBackend.Services
             _context = context;
         }
 
-        public async Task<List<AlunoResponse>> BuscarAlunosService(Guid? professorId = null)
+        public async Task<List<AlunoResponse>> BuscarAlunosService(Guid? professorId = null, bool apenasEmRisco = false)
         {
+            const decimal MediaMinima = 7.0m;
+            const decimal LimiteFaltas = 15m;
+
             var query = _context.Alunos.AsNoTracking().AsQueryable();
 
+            // Professor continua vendo só os alunos das suas turmas
             if (professorId.HasValue)
                 query = query.Where(a => a.Matriculas.Any(m => m.Turma.ProfessorId == professorId.Value));
 
-            return await query
-                .OrderBy(a => a.Nome)
-                .Select(a => new AlunoResponse
+            var dados = await query
+                .Select(a => new
                 {
-                    Id = a.Id,
-                    Nome = a.Nome,
-                    Email = a.Email,
-                    Telefone = a.Telefone
+                    AlunoId = a.Id,
+                    a.Nome,
+                    a.Email,
+                    a.Telefone,
+                    Matriculas = a.Matriculas
+                        .Where(m => m.Status == StatusMatricula.Ativa
+                                    && (!professorId.HasValue || m.Turma.ProfessorId == professorId.Value))
+                        .Select(m => new
+                        {
+                            MatriculaId = m.Id,
+                            m.P1,
+                            m.P2,
+                            m.Trabalho,
+                            TotalPresencas = m.Presencas.Count(),
+                            Faltas = m.Presencas.Count(p => !p.Presente && !p.ComAtestado)
+                        })
+                        .ToList()
                 })
                 .ToListAsync();
+
+            var resultado = new List<AlunoResponse>();
+
+            foreach (var d in dados)
+            {
+                // Aluno sem matrícula ativa: entra na lista, mas nunca em risco
+                if (d.Matriculas.Count == 0)
+                {
+                    resultado.Add(new AlunoResponse
+                    {
+                        Id = d.AlunoId,
+                        Nome = d.Nome,
+                        Email = d.Email,
+                        Telefone = d.Telefone,
+                        MatriculaId = null,
+                        Media = null,
+                        PercentualFaltas = 0m,
+                        EmRisco = false
+                    });
+                    continue;
+                }
+
+                foreach (var m in d.Matriculas)
+                {
+                    var notas = new[] { m.P1, m.P2, m.Trabalho }
+                        .Where(n => n.HasValue)
+                        .Select(n => n!.Value)
+                        .ToList();
+
+                    decimal? media = notas.Count > 0 ? Math.Round(notas.Average(), 1) : null;
+
+                    var percentualFaltas = m.TotalPresencas > 0
+                        ? Math.Round(m.Faltas * 100m / m.TotalPresencas, 1)
+                        : 0m;
+
+                    resultado.Add(new AlunoResponse
+                    {
+                        Id = d.AlunoId,
+                        Nome = d.Nome,
+                        Email = d.Email,
+                        Telefone = d.Telefone,
+                        MatriculaId = m.MatriculaId,
+                        Media = media,
+                        PercentualFaltas = percentualFaltas,
+                        EmRisco = percentualFaltas > LimiteFaltas
+                                  || (media.HasValue && media < MediaMinima)
+                    });
+                }
+            }
+
+            if (apenasEmRisco)
+                resultado = resultado.Where(a => a.EmRisco).ToList();
+
+            return resultado.OrderBy(a => a.Nome).ToList();
+        }
+
+        public async Task<AlunoStatusInicioResponse> AlunoStatusInicioService(Guid alunoId)
+        {
+            const int limiteFaltas = 8;
+
+            var matriculaId = await _context.Matriculas
+                .Where(m => m.AlunoId == alunoId && !m.Apagado)
+                .OrderByDescending(m => m.CriadoEm)
+                .Select(m => (Guid?)m.Id)
+                .FirstOrDefaultAsync();
+
+            var presencas = _context.Presencas
+                .Where(p => p.MatriculaId == matriculaId);
+
+            var total = await presencas.CountAsync();
+            var faltas = await presencas.CountAsync(p => !p.Presente && !p.ComAtestado);
+
+            var statusFalta = "Sem registros";
+
+            if (total > 0)
+            {
+                statusFalta = faltas <= limiteFaltas ? "Boa" : "Atenção";
+            }
+
+            var concluiuCurso = await _context.Matriculas
+                .AnyAsync(m => m.AlunoId == alunoId
+                            && !m.Apagado
+                            && (m.Status == StatusMatricula.Concluida
+                             || m.Status == StatusMatricula.Certificada));
+
+            return new AlunoStatusInicioResponse
+            {
+                StatusFalta = statusFalta,
+                StatusCertificado = concluiuCurso ? "Liberado" : "Pendente"
+            };
+        }
+
+        public async Task<StatusMatricula> AlternarTrancamentoMatriculaService(Guid alunoId)
+        {
+            var matricula = await _context.Matriculas
+                .Where(m => m.AlunoId == alunoId && !m.Apagado)
+                .OrderByDescending(m => m.CriadoEm)
+                .FirstOrDefaultAsync();
+
+            if (matricula is null)
+                throw new KeyNotFoundException("Você não possui matrícula.");
+
+            matricula.Status = matricula.Status switch
+            {
+                StatusMatricula.Ativa => StatusMatricula.Trancada,
+                StatusMatricula.Trancada => StatusMatricula.Ativa,
+                _ => throw new InvalidOperationException(
+                         "Somente matrículas ativas ou trancadas podem ser alteradas.")
+            };
+
+            matricula.AtualizadoEm = DateTime.UtcNow;
+            await _context.SaveChangesAsync();
+
+            return matricula.Status;
         }
 
         public async Task<List<AlunoResponse>> BuscarAlunosPorTurmaService(Guid turmaId, Guid? professorId = null)
@@ -283,6 +416,76 @@ namespace FalareBackend.Services
                 ValorEmAberto = abertos.Sum(p => p.Valor),
                 Historico = historico
             };
+        }
+
+        public async Task<(byte[] Pdf, string NomeArquivo)> EmitirCertificadoService(Guid alunoId)
+        {
+            // Pendência financeira bloqueia a emissão
+            var temPendencia = await _context.Pagamentos
+                .AnyAsync(p => p.AlunoId == alunoId && p.Status == StatusPagamento.Pendente);
+
+            if (temPendencia)
+                throw new InvalidOperationException("Existem pendências financeiras. Regularize para emitir o certificado.");
+
+            // Matrícula concluída ou certificada (a mais recente)
+            var dados = await _context.Matriculas
+                .AsNoTracking()
+                .Where(m => m.AlunoId == alunoId
+                            && !m.Apagado
+                            && (m.Status == StatusMatricula.Concluida || m.Status == StatusMatricula.Certificada))
+                .OrderByDescending(m => m.AtualizadoEm)
+                .Select(m => new
+                {
+                    AlunoNome = m.Aluno.Nome,
+                    m.Turma.Idioma,
+                    m.Turma.Nivel
+                })
+                .FirstOrDefaultAsync();
+
+            if (dados is null)
+                throw new InvalidOperationException("Certificado indisponível: o curso ainda não foi concluído.");
+
+            var fuso = TimeZoneInfo.FindSystemTimeZoneById("America/Sao_Paulo");
+            var hoje = TimeZoneInfo.ConvertTimeFromUtc(DateTime.UtcNow, fuso);
+            var dataTexto = hoje.ToString("dd 'de' MMMM 'de' yyyy", new System.Globalization.CultureInfo("pt-BR"));
+
+            var pdf = Document.Create(doc =>
+            {
+                doc.Page(page =>
+                {
+                    page.Size(PageSizes.A4.Landscape());
+                    page.Margin(30);
+
+                    page.Content()
+                        .Border(3).BorderColor(Colors.Blue.Darken3)
+                        .Padding(40)
+                        .Column(col =>
+                        {
+                            col.Spacing(18);
+
+                            col.Item().AlignCenter()
+                                .Text("FALARE").FontSize(40).Bold().FontColor(Colors.Blue.Darken3);
+
+                            col.Item().AlignCenter()
+                                .Text("CERTIFICADO DE CONCLUSÃO").FontSize(22).SemiBold();
+
+                            col.Item().PaddingTop(20).AlignCenter()
+                                .Text("Certificamos que").FontSize(14);
+
+                            col.Item().AlignCenter()
+                                .Text(dados.AlunoNome).FontSize(32).Bold();
+
+                            col.Item().AlignCenter()
+                                .Text($"concluiu com êxito o curso de {dados.Idioma}, nível {dados.Nivel}.")
+                                .FontSize(16);
+
+                            col.Item().PaddingTop(30).AlignCenter()
+                                .Text($"Emitido em {dataTexto}").FontSize(12);
+                        });
+                });
+            }).GeneratePdf();
+
+            return (pdf, $"certificado-falare-{dados.Idioma}-{dados.Nivel}.pdf");
         }
 
         private static AlunoResponse ParaResponse(Aluno a) => new()
